@@ -1,28 +1,72 @@
 import Employee from "./Employee";
-import { useContext } from "react";
+import AddForm from "./AddForm";
+import { useContext, useState } from "react";
 import { EmployeeContext } from "../context/EmployeeContext";
+import { Modal, Button } from "react-bootstrap"
 
 const EmployeeList = () => {
 
   const employees = useContext(EmployeeContext)
 
+  const [show, setShow] = useState(false)
+
+  const showModal = () => setShow(true)
+  const closeModal = () => setShow(false)
+
   return (
-    <table className="table table-striped table-hover">
-      <thead>
-        <tr>
-          <th>Name</th>
-          <th>Email</th>
-          <th>Address</th>
-          <th>Phone</th>
-          <th>Actions</th>
-        </tr>
-      </thead>
-      <tbody>
-        <Employee
-          employees={employees}
-        />
-      </tbody>
-    </table>
+    <>
+      <div className="table-title">
+        <div className="row">
+          <div className="col-sm-6">
+            <h2>Manage <b>Employees</b></h2>
+          </div>
+          <div className="col-sm-6">
+            <button onClick={showModal} className="btn btn-success" data-toggle="modal">
+              <i className="material-icons">&#xE147;</i>
+              <span>Add New Employee</span>
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <table className="table table-striped table-hover">
+        <thead>
+          <tr>
+            <th>Name</th>
+            <th>Email</th>
+            <th>Address</th>
+            <th>Phone</th>
+            <th>Actions</th>
+          </tr>
+        </thead>
+        <tbody>
+          <Employee
+            employees={employees}
+          />
+        </tbody>
+      </table>
+
+      <Modal show={show}>
+
+        <Modal.Header>
+          <Modal.Title>
+            Add Employee
+          </Modal.Title>
+        </Modal.Header>
+
+        <Modal.Body>
+          <AddForm />
+        </Modal.Body>
+
+        <Modal.Footer>
+          <Button variant="primary" onClick={closeModal}>
+            Close Modal
+          </Button>
+        </Modal.Footer>
+      </Modal>
+
+    </>
+
   )
 }
 
