@@ -1,17 +1,21 @@
 import Employee from "./Employee";
 import AddForm from "./AddForm";
-import { useContext, useState } from "react";
+import { useContext, useState, useEffect } from "react";
 import { EmployeeContext } from "../context/EmployeeContext";
 import { Modal, Button } from "react-bootstrap"
 
 const EmployeeList = () => {
 
-  const employees = useContext(EmployeeContext)
+  const { employees } = useContext(EmployeeContext)
 
   const [show, setShow] = useState(false)
 
   const showModal = () => setShow(true)
   const closeModal = () => setShow(false)
+
+  useEffect(() => {
+    closeModal()
+  }, [employees])
 
   return (
     <>
@@ -48,7 +52,7 @@ const EmployeeList = () => {
 
       <Modal show={show}>
 
-        <Modal.Header>
+        <Modal.Header closeButton onClick={closeModal}>
           <Modal.Title>
             Add Employee
           </Modal.Title>
