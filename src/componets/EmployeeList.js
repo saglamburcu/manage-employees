@@ -85,6 +85,7 @@ const EmployeeList = () => {
         pageNumber={totalPages}
         setPage={setPage}
         sortedEmployees={sortedEmployees}
+        currentEmployees={currentEmployees}
       />
 
       <Modal show={show}>

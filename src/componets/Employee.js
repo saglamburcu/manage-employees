@@ -1,7 +1,7 @@
 import { EmployeeContext } from "../context/EmployeeContext";
 import { useContext, useState, useEffect } from "react";
 import EditForm from "./EditForm";
-import { Modal, Button } from "react-bootstrap"
+import { Modal, Button, OverlayTrigger, Tooltip } from "react-bootstrap"
 
 
 const Employee = ({ employee }) => {
@@ -25,8 +25,26 @@ const Employee = ({ employee }) => {
       <td>{employee.address}</td>
       <td>{employee.phone}</td>
       <td>
-        <button onClick={showModal} className="btn text-warning" data-toggle="modal"><i className="material-icons" data-toggle="tooltip" title="Edit">&#xE254;</i></button>
-        <button onClick={() => deleteEmployee(employee.id)} className="btn text-danger" data-toggle="modal"><i className="material-icons" data-toggle="tooltip" title="Delete">&#xE872;</i></button>
+
+        <OverlayTrigger
+          overlay={
+            <Tooltip id={`tooltip-top`}>
+              Edit
+            </Tooltip>
+          }
+        >
+          <button onClick={showModal} className="btn text-warning" data-toggle="modal"><i className="material-icons" data-toggle="tooltip" title="Edit">&#xE254;</i></button>
+        </OverlayTrigger>
+
+        <OverlayTrigger
+          overlay={
+            <Tooltip id={`tooltip-top`}>
+              Delete
+            </Tooltip>
+          }
+        >
+          <button onClick={() => deleteEmployee(employee.id)} className="btn text-danger" data-toggle="modal"><i className="material-icons" data-toggle="tooltip" title="Delete">&#xE872;</i></button>
+        </OverlayTrigger>
       </td>
 
 
